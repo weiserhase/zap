@@ -87,6 +87,7 @@
             })
         })
 
+        anchor("default", (0, 0)) // Default anchor at the component orign. This prevents drift with relative placement of components see #188.
         copy-anchors("component")
 
         // Label
