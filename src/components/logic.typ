@@ -1,5 +1,5 @@
-#import "/src/component.typ": component, interface
-#import "/src/dependencies.typ": cetz
+#import "../component.typ": component, interface
+#import "../dependencies.typ": cetz
 #import cetz.draw: anchor, arc-through, circle, content, line, rect, rotate
 
 #let logic(name, node, text: $"&"$, invert: false, inputs: 2, ..params) = {

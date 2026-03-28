@@ -1,6 +1,6 @@
-#import "/tests/utils.typ": test
-#import "/src/lib.typ"
-#import "/src/dependencies.typ": cetz
+#import "../utils.typ": test
+#import "../../src/lib.typ"
+#import "../../src/dependencies.typ": cetz
 
 // Test rotation
 #test({
