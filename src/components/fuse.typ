@@ -1,6 +1,6 @@
-#import "/src/component.typ": component, interface
-#import "/src/dependencies.typ": cetz
-#import "/src/components/wire.typ": wire
+#import "../component.typ": component, interface
+#import "../dependencies.typ": cetz
+#import "./wire.typ": wire
 #import cetz.draw: anchor, circle, floating, line, rect, set-style
 
 #let fuse(name, node, asymmetric: false, ..params) = {

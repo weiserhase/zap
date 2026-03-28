@@ -1,5 +1,5 @@
-#import "/src/dependencies.typ": cetz
-#import "/src/utils.typ": get-style, opposite-anchor, resolve-style
+#import "../dependencies.typ": cetz
+#import "../utils.typ": get-style, opposite-anchor, resolve-style
 #import cetz.draw: anchor, circle, content, group, hide, line, mark, set-style
 #import cetz.styles: merge
 

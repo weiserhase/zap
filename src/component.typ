@@ -1,8 +1,8 @@
-#import "dependencies.typ": cetz
-#import "decorations.typ": current, flow, voltage
-#import "components/node.typ": node
-#import "components/wire.typ": wire
-#import "utils.typ": expand-stroke, get-label-anchor, get-style, opposite-anchor, resolve-style
+#import "./dependencies.typ": cetz
+#import "./decorations.typ": current, flow, voltage
+#import "./components/node.typ": node
+#import "./components/wire.typ": wire
+#import "./utils.typ": expand-stroke, get-label-anchor, get-style, opposite-anchor, resolve-style
 #import cetz.styles: merge
 #import cetz.util: merge-dictionary
 

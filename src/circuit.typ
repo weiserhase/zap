@@ -1,5 +1,5 @@
-#import "/src/dependencies.typ": cetz
-#import "/src/styles.typ": default
+#import "./dependencies.typ": cetz
+#import "./styles.typ": default
 
 #let circuit(fallback, ..params) = {
     cetz.canvas(..params, {
