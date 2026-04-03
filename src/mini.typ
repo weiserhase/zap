@@ -125,14 +125,60 @@
     line((width / 2, -vspace), (width / 2 - tick-width, -vspace))
 }
 
-#let ac-sign(size: 1) = {
+#let ac-sign(size: 1, waveform: "sine") = {
+    assert(
+        waveform in ("sine", "sin", "square", "rect", "rectangular", "triangle", "tri", "sawtooth", "saw", "saw-tooth"),
+        message: "waveform must be sine, square, triangle, or sawtooth",
+    )
+
+    let waveform = if waveform in ("sine", "sin") {
+        "sine"
+    } else if waveform in ("square", "rect", "rectangular") {
+        "square"
+    } else if waveform in ("triangle", "tri") {
+        "triangle"
+    } else {
+        "sawtooth"
+    }
     let width = 10pt * size
     let height = 4pt * size
     let symbol-stroke = 0.55pt
 
     set-style(stroke: symbol-stroke)
 
-    hobby((-width / 2, 0), (-width / 4, height / 2), (width / 4, -height / 2), (width / 2, 0))
+    if waveform == "square" {
+        let height-mod = height / 1.5
+        line(
+            (0, 0),
+            (rel: (0, height-mod)),
+            (rel: (width / 2, 0)),
+            (rel: (0, -2 * height-mod)),
+            (rel: (width / 2, 0)),
+            (rel: (0, height-mod)),
+        )
+    } else if waveform == "triangle" {
+        line(
+            (0, 0),
+            (rel: (width / 4, height)),
+            (rel: (width / 4, -height)),
+            (rel: (width / 4, height)),
+        )
+    } else if waveform == "sawtooth" {
+        line(
+            (0, 0),
+            (rel: (width / 2, height)),
+            (rel: (0, -height)),
+            (rel: (width / 2, height)),
+        )
+    } else {
+        // Default to sine wave
+        hobby(
+            (-width / 2, 0),
+            (-width / 4, height / 2),
+            (width / 4, -height / 2),
+            (width / 2, 0),
+        )
+    }
 }
 
 #let clock-wedge(size: 1) = {
