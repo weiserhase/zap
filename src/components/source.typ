@@ -55,7 +55,7 @@
         }
         if style.variant == "iec" {
             if current == "ac" {
-                content((0, 0), [#cetz.canvas({ ac-sign(size: 2) })])
+                content((0, 0), [#cetz.canvas({ ac-sign(size: 2, waveform: style.waveform) })])
             } else {
                 line((-style.radius * factor, 0), (rel: (2 * style.radius * factor, 0)))
             }

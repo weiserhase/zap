@@ -293,6 +293,7 @@
         sign-stroke: .55pt,
         sign-size: .14,
         sign-delta: .07,
+        waveform: "sine",
     ),
     isource: (
         variant: auto,
