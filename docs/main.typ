@@ -1056,6 +1056,11 @@ The `diode` symbol accepts only one parameter, called `type`, and its appearance
 
 == MOSFET transistors <mosfet>
 
+The symbol is drawn vertically, with the gate on the left and the drain and source exiting vertically.
+For an n-type transistor the drain is on top and the bulk arrow points towards the channel, for a p-type
+one the source is on top and the arrow points away from the channel. The bulk is tied to the source by
+default, as shown by the junction dot.
+
 #circ(
     ```typst
     #import "./zap.typ"
@@ -1074,8 +1079,8 @@ The `diode` symbol accepts only one parameter, called `type`, and its appearance
     columns: (auto, auto, auto, auto, auto),
     align: left + top,
     table.header([*Name*], [*Default value*], [*Type*], [*Alias*], [*Image*]),
-    // dependent
-    `channel`,
+    // type
+    `type`,
     `"n"`,
     [`"n"` / `"p"`],
     [`pmos` / `nmos`],
@@ -1083,7 +1088,7 @@ The `diode` symbol accepts only one parameter, called `type`, and its appearance
         zap.circuit({
             import zap: *
 
-            mosfet("t1", (0, 0), channel: "p")
+            mosfet("t1", (0, 0), type: "p")
         }),
     ),
     // envelope
@@ -1119,10 +1124,16 @@ The `diode` symbol accepts only one parameter, called `type`, and its appearance
         zap.circuit({
             import zap: *
 
-            mosfet("t1", (0, 0), bulk: none)
+            mosfet("t1", (0, 0), bulk: "external")
         }),
     ),
 )
+
+With `bulk: "external"`, the body is no longer tied to the source: the lead ends free and you wire it
+yourself from the `b` anchor. With `bulk: none`, the body is not drawn at all and the arrow sits on the
+source lead instead.
+
+#info(title: "Naming")[The `channel` option is still accepted as an alias of `type`, so `mosfet("t1", (0, 0), channel: "p")` keeps working.]
 
 == Transformer <transformer>
 
