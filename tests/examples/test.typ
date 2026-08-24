@@ -80,3 +80,16 @@
     zwire("esp34.pin2", (rel: (8, 0), to: "esp33.pin21"), ratio: -3)
     zener("zener", (rel: (8, 0), to: "esp33.pin21"), "esp33.pin21", position: 1, label: (content: $Z_1$, anchor: "south"))
 })
+
+// Test pins on every side
+#test({
+    import lib: *
+    mcu("u1", (0, 0), width: 2.4, pins: (
+        (content: "A", side: "west"),
+        (content: "B", side: "west"),
+        (content: "Y", side: "east"),
+        (content: "EN", side: "north"),
+        (content: "OE", side: "north"),
+        (content: "CLK", side: "south"),
+    ))
+})

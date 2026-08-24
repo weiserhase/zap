@@ -14,8 +14,6 @@
     let draw(ctx, position, style) = {
         let pins = if type(pins) == int {
             let pins_west = calc.ceil(pins / 2)
-            let pins_east = pins - pins_west
-            let max_pins = calc.max(pins_west, pins_east)
             range(pins).map(i => (
                 content: str(i + 1),
                 side: if i < pins_west { "west" } else { "east" },
@@ -23,27 +21,37 @@
         } else {
             pins
         }
-        let west-count = pins.filter(p => p.side == "west").len()
-        let east-count = pins.filter(p => p.side == "east").len()
-        let height = calc.max(style.min-height, (calc.max(west-count, east-count)) * style.spacing + 2 * style.padding)
-        interface((-style.width / 2, -height / 2), (style.width / 2, height / 2))
+        let side-of(pin) = {
+            let side = pin.at("side", default: "west")
+            if side in ("west", "east", "north", "south") { side } else { "west" }
+        }
+        let count(side) = pins.filter(pin => side-of(pin) == side).len()
 
-        rect((-style.width / 2, -height / 2), (style.width / 2, height / 2), fill: style.fill, stroke: style.stroke)
+        let height = calc.max(style.min-height, calc.max(count("west"), count("east")) * style.spacing + 2 * style.padding)
+        let width = calc.max(style.width, calc.max(count("north"), count("south")) * style.h-spacing + 2 * style.padding)
+        interface((-width / 2, -height / 2), (width / 2, height / 2))
 
-        let (wi, ei) = (0, 0)
-        for pin in pins {
+        rect((-width / 2, -height / 2), (width / 2, height / 2), fill: style.fill, stroke: style.stroke)
+
+        let counters = (west: 0, east: 0, north: 0, south: 0)
+        for (index, pin) in pins.enumerate() {
             assert(type(pin) == dictionary, message: "pins must be dictionnaries")
-            let is_west = "west" in pin.at("side", default: "west")
-            let (reverse, counter) = if is_west {
-                wi += 1
-                (-1, wi)
+            let side = side-of(pin)
+            counters.at(side) += 1
+            let counter = counters.at(side)
+
+            let position = if side == "west" {
+                (-width / 2, height / 2 - counter * style.spacing)
+            } else if side == "east" {
+                (width / 2, height / 2 - counter * style.spacing)
+            } else if side == "north" {
+                (-width / 2 + counter * style.h-spacing, height / 2)
             } else {
-                ei += 1
-                (1, ei)
+                (-width / 2 + counter * style.h-spacing, -height / 2)
             }
-            let pin-number = wi + ei
-            anchor("pin" + str(pin-number), (reverse * style.width / 2, height / 2 - counter * style.spacing))
-            content("pin" + str(pin-number), pin.at("content", default: ""), anchor: pin.at("side", default: "west"), padding: style.padding)
+
+            anchor("pin" + str(index + 1), position)
+            content("pin" + str(index + 1), pin.at("content", default: ""), anchor: side, padding: style.padding)
         }
     }
 

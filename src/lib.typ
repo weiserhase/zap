@@ -36,6 +36,13 @@
 #import "./components/integrated/opamp.typ": opamp
 #import "./components/integrated/mcu.typ": mcu
 #import "./components/integrated/converter.typ": adc, dac
+#import "./components/integrated/mux.typ": demux, multiplexer, mux
+#import "./components/integrated/block.typ": block
+#import "./components/bus.typ": bus-splice, merger, splitter
+#import "./components/tristate.typ": tristate
+#import "./components/display.typ": seven-segment
+#import "./components/register.typ": register, register-bank
+#import "./components/integrated/alu.typ": alu
 #import "./components/instruments/round-meter.typ": ammeter, ohmmeter, round-meter, voltmeter, wattmeter
 #import "./components/button.typ": button, ncbutton, ncibutton, nobutton, noibutton
 #import "./components/integrated/flipflop.typ": dflipflop, flipflop, jkflipflop, srlatch

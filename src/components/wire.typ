@@ -1,6 +1,7 @@
 #import "../dependencies.typ": cetz
+#import "../mini.typ": bus-mark
 #import "../utils.typ": get-style, opposite-anchor, resolve-style
-#import cetz.draw: anchor, circle, content, group, hide, line, mark, set-style
+#import cetz.draw: anchor, circle, content, get-ctx, group, hide, line, mark, set-style
 #import cetz.styles: merge
 
 #let ra = ratio
@@ -48,10 +49,27 @@
             line(..generated-points, points.last(), name: "line")
         }
 
-        // TODO Multi-bits wiring by displaying a slash with a number
-        for i in range(bits) {
-            let delta = i * 0.4
-            wire((rel: (0, -0.2), to: "line.50%"), (rel: (0, 0.2), to: "line.50%"))
+        // Bus width, displayed as a slash across the wire with the number of bits
+        if bits > 0 {
+            let bits-style = style.bits
+            let position = bits-style.position
+            let ahead = if type(position) == ra { position + 1% } else { position + 0.05 }
+
+            get-ctx(ctx => {
+                let (ctx, start, next) = cetz.coordinate.resolve(
+                    ctx,
+                    (name: "line", anchor: position),
+                    (name: "line", anchor: ahead),
+                )
+                let direction = cetz.vector.angle2(start, next)
+
+                bus-mark(
+                    start,
+                    direction,
+                    if bits-style.content == auto { str(bits) } else { bits-style.content },
+                    bits-style,
+                )
+            })
         }
 
         // Current decoration
